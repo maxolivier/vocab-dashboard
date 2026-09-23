@@ -500,7 +500,8 @@
   }
 
   /* ── Test me dropdown ── */
-  .test-dropdown { position: relative; min-width: 120px; }
+  .test-dropdown { position: relative; min-width: 120px; display: flex; flex-direction: column; }
+  .test-dropdown > .recalc-btn { width: 100%; }
   .test-dropdown-menu {
     display: none;
     position: absolute;
