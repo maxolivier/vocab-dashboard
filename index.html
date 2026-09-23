@@ -498,6 +498,38 @@
     .grade-btn { font-size: 13px; padding: 10px 22px; min-height: 44px; }
     .flashcard-text { font-size: 22px; }
   }
+
+  /* ── Test me dropdown ── */
+  .test-dropdown { position: relative; }
+  .test-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(61,57,41,0.14);
+    min-width: 130px;
+    z-index: 200;
+    overflow: hidden;
+  }
+  .test-dropdown-menu.open { display: block; }
+  .test-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 11px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .test-dropdown-item + .test-dropdown-item { border-top: 1px solid var(--border); }
+  .test-dropdown-item:active { background: var(--accent-soft); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -516,8 +548,13 @@
         <button type="button" class="lang-btn active" data-lang="french">French</button>
         <button type="button" class="lang-btn" data-lang="spanish">Spanish</button>
       </div>
-      <button class="recalc-btn" id="weakWordsBtn">Weak words</button>
-      <button class="recalc-btn" id="testBtn">Test me</button>
+      <div class="test-dropdown" id="testDropdown">
+        <button class="recalc-btn" id="testBtn" type="button">Test me ▾</button>
+        <div class="test-dropdown-menu" id="testDropdownMenu">
+          <button type="button" class="test-dropdown-item" id="testAllBtn">All</button>
+          <button type="button" class="test-dropdown-item" id="testWeakBtn">Weak words</button>
+        </div>
+      </div>
       <button class="recalc-btn" id="recalcBtn">Reclassify</button>
     </div>
   </div>
@@ -1076,7 +1113,22 @@ function openWeakWordsModal() {
 function closeWeakWordsModal() { document.getElementById('weakWordsModal').classList.remove('open'); }
 
 function setupWeakWordsModal() {
-  document.getElementById('weakWordsBtn').addEventListener('click', openWeakWordsModal);
+  // Test me dropdown
+  document.getElementById('testBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('testDropdownMenu').classList.toggle('open');
+  });
+  document.getElementById('testAllBtn').addEventListener('click', () => {
+    document.getElementById('testDropdownMenu').classList.remove('open');
+    openTestModal();
+  });
+  document.getElementById('testWeakBtn').addEventListener('click', () => {
+    document.getElementById('testDropdownMenu').classList.remove('open');
+    openWeakWordsModal();
+  });
+  document.addEventListener('click', () => {
+    document.getElementById('testDropdownMenu').classList.remove('open');
+  });
   document.getElementById('weakWordsCloseBtn').addEventListener('click', closeWeakWordsModal);
   const overlay = document.getElementById('weakWordsModal');
   overlay.addEventListener('click', e => { if (e.target === overlay) closeWeakWordsModal(); });
@@ -1400,7 +1452,7 @@ function setupFlashcardSwipe() {
 
 function setupTestModal() {
   const overlay = document.getElementById('testModal');
-  document.getElementById('testBtn').addEventListener('click', openTestModal);
+
   document.getElementById('testCloseBtn').addEventListener('click', closeTestModal);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeTestModal(); });
   document.addEventListener('keydown', e => {
