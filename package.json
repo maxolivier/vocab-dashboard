@@ -1,0 +1,9 @@
+{
+  "name": "language-learning",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "@anthropic-ai/sdk": "^0.27.0"
+  }
+}
