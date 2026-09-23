@@ -1190,7 +1190,17 @@ function recomputeAndRender() {
   renderChart(scores, counts);
   renderCards(counts, scores);
   document.getElementById('totalCount').textContent   = allEntriesGlobal.length;
-  document.getElementById('lastUpdated').textContent  = new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+  (function() {
+    const now = new Date();
+    const today = new Date(); today.setHours(0,0,0,0);
+    const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    let label;
+    if (now >= today) label = 'today ' + time;
+    else if (now >= yesterday) label = 'yesterday ' + time;
+    else label = now.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+    document.getElementById('lastUpdated').textContent = label;
+  })()
 }
 
 function renderCards(counts, scores) {
