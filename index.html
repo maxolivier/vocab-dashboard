@@ -48,7 +48,7 @@
     gap: 12px;
     margin-bottom: 16px;
   }
-  .header h1 { margin: 0 0 4px 0; font-size: 22px; font-weight: 700; color: var(--text); }
+  .header h1 { margin: 0 0 4px 0; font-size: 30px; font-weight: 700; color: var(--text); }
   .header p  { margin: 0; color: var(--text-muted); font-size: 13px; }
   .stats { display: flex; gap: 10px; flex-wrap: wrap; }
   .actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -505,7 +505,6 @@
   <div class="header">
     <div>
       <h1 id="pageTitle">French Vocab Coverage</h1>
-      <p id="pageDesc">Relative coverage across 11 learning categories, drawn live from your Notion Vocab pages.</p>
     </div>
     <div class="stats">
       <div class="stat-pill"><strong id="totalCount">–</strong>vocab entries</div>
@@ -652,13 +651,7 @@
     </div>
   </div>
 
-  <div class="footnote">
-    <strong>Categories (MECE):</strong> <span id="footnoteCategories"></span>.
-    Classification priority: slang/informal register (incl. anything ambiguous between an idiom and slang) → 11; core grammar/function words → 1;
-    fixed figurative idioms (standard register) → 2; time/degree/comparison/discourse phrases → 10; otherwise the best topical fit (3–7), then concrete
-    objects/food/home → 8, then general everyday actions → 9.<br>
-    <strong>Coverage score:</strong> (entries in category ÷ entries in your largest category) × 100.
-  </div>
+
 
 <script>
 // ── API helpers (replaces window.cowork.callMcpTool / askClaude) ────────────────────
